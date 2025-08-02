@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Contacto - DataVision Consulting</title>
+<meta name="description" content="Contacto de DataVision Consulting. Oficina central en Bogotá. Habla con el gerente y solicita consultoría en análisis de datos."/>
+<style>
+    :root {
+        --bg1: #0f2027;
+        --bg2: #203a43;
+        --accent: #00ffcc;
+        --accent2: #00bfff;
+        --radius: 16px;
+        --shadow: 0 35px 80px -15px rgba(0,191,255,0.25);
+        --transition: .3s cubic-bezier(.4,.2,.2,1);
+    }
+    * { box-sizing: border-box; }
+    body {
+        margin: 0;
+        font-family: 'Segoe UI', system-ui, sans-serif;
+        background: linear-gradient(135deg, var(--bg1), var(--bg2));
+        color: #e6eefd;
+        min-height: 100%;
+        line-height: 1.45;
+    }
+    header {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        padding: 18px 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: rgba(10,15,25,0.75);
+        backdrop-filter: blur(8px);
+    }
+    header h1 {
+        margin: 0;
+        font-size: 1.7em;
+        background: linear-gradient(90deg, var(--accent), var(--accent2));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    nav a {
+        margin-left: 18px;
+        text-decoration: none;
+        color: #fff;
+        font-weight: 600;
+        position: relative;
+    }
+    nav a::after {
+        content: "";
+        position: absolute;
+        left: 0; bottom: -4px;
+        width: 0;
+        height: 3px;
+        background: var(--accent);
+        transition: width .25s;
+        border-radius: 2px;
+    }
+    nav a:hover::after { width: 100%; }
+
+    .hero {
+        padding: 70px 20px 40px;
+        text-align: center;
+    }
+    .hero h2 {
+        margin: 0;
+        font-size: 2.4em;
+        color: var(--accent);
+    }
+    .hero p {
+        margin: 10px auto 0;
+        max-width: 800px;
+        font-size: 1.05em;
+        opacity: .95;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 30px 20px;
+        display: grid;
+        gap: 40px;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+
+    .card {
+        background: rgba(255,255,255,0.03);
+        border-radius: var(--radius);
+        padding: 25px 22px;
+        position: relative;
+        overflow: hidden;
+        transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .card:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow);
+    }
+    .card h3 {
+        margin-top: 0;
+        font-size: 1.6em;
+    }
+    .small {
+        font-size: .9em;
+        opacity: .85;
+    }
+
+    .manager {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 18px;
+        align-items: center;
+    }
+    .photo {
+        flex: 0 0 120px;
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--accent), var(--accent2));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+        font-size: 0.8em;
+        color: #0b0f13;
+        font-weight: bold;
+        text-align: center;
+    }
+    .photo img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        border-radius: 50%;
+        display: block;
+    }
+    .info {
+        flex: 1;
+        min-width: 180px;
+    }
+    .badge {
+        display: inline-block;
+        padding: 6px 14px;
+        background: linear-gradient(90deg, var(--accent), var(--accent2));
+        border-radius: 999px;
+        font-size: .6em;
+        font-weight: 700;
+        letter-spacing: .5px;
+        margin-bottom: 6px;
+    }
+
+    .contact-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: grid;
+        gap: 12px;
+    }
+    .contact-list li {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: rgba(255,255,255,0.06);
+        padding: 12px 16px;
+        border-radius: 12px;
+        position: relative;
+    }
+    .contact-list li span {
+        flex: 1;
+    }
+    .pill {
+        background: rgba(255,255,255,0.12);
+        padding: 6px 12px;
+        border-radius: 999px;
+        font-size: .7em;
+        display: inline-block;
+        margin-right: 6px;
+    }
+
+    .form-wrapper {
+        position: relative;
+    }
+    form {
+        display: grid;
+        gap: 16px;
+    }
+    label {
+        font-size: .85em;
+        font-weight: 600;
+        display: block;
+        margin-bottom: 4px;
+    }
+    input, textarea {
+        width: 100%;
+        padding: 12px 14px;
+        border: none;
+        border-radius: 10px;
+        background: rgba(255,255,255,0.05);
+        color: #fff;
+        resize: vertical;
+        font-size: 1em;
+        outline: none;
+        transition: box-shadow .2s;
+    }
+    input:focus, textarea:focus {
+        box-shadow: 0 0 15px rgba(0,255,204,0.6);
+        background: rgba(255,255,255,0.08);
+    }
+    .submit-btn {
+        background: linear-gradient(90deg, var(--accent), var(--accent2));
+        border: none;
+        padding: 14px 22px;
+        border-radius: 999px;
+        font-weight: 700;
+        cursor: pointer;
+        font-size: 1em;
+        transition: transform .25s;
+    }
+    .submit-btn:hover {
+        transform: scale(1.03);
+    }
+
+    .status {
+        margin-top: 6px;
+        font-size: .9em;
+        display: none;
+    }
+    .status.success { color: #7cffb2; }
+    .status.error { color: #ff6b6b; }
+
+    .map-frame {
+        position: relative;
+        border-radius: 16px;
+        overflow: hidden;
+        min-height: 240px;
+        background: linear-gradient(135deg, rgba(32,58,67,.95), rgba(15,32,39,.9));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .map-placeholder {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: .85em;
+        color: rgba(255,255,255,0.25);
+        pointer-events: none;
+        flex-direction: column;
+        gap: 6px;
+    }
+    .location-pin {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        background: var(--accent);
+        position: relative;
+        animation: pulse 2s infinite;
+        margin-bottom: 6px;
+    }
+    @keyframes pulse {
+        0% { transform: scale(1); opacity: .85; }
+        50% { transform: scale(1.2); opacity: 1; }
+        100% { transform: scale(1); opacity: .85; }
+    }
+
+    .inline-info {
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+    }
+
+    .socials {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 10px;
+    }
+    .social-pill {
+        background: rgba(255,255,255,0.08);
+        padding: 8px 14px;
+        border-radius: 999px;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        font-size: .85em;
+        cursor: pointer;
+        transition: background .2s;
+        text-decoration: none;
+        color: #fff;
+    }
+    .social-pill:hover {
+        background: linear-gradient(90deg, var(--accent), var(--accent2));
+        color: #0b0f13;
+    }
+
+    .call-section {
+        margin-top: 14px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .call-input-wrapper {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+    .call-input-wrapper input {
+        flex: 1;
+        min-width: 180px;
+    }
+    .call-status {
+        margin-top: 6px;
+        font-size: .9em;
+        display: none;
+    }
+    .note {
+        background: rgba(0,255,204,0.1);
+        padding: 10px 14px;
+        border-radius: 8px;
+        font-size: .9em;
+        margin-top: 8px;
+        display: none;
+    }
+
+    .back-link {
+        display: inline-block;
+        margin-bottom: 8px;
+        text-decoration: none;
+        font-weight: 600;
+        color: #fff;
+        padding: 6px 14px;
+        border-radius: 999px;
+        background: rgba(255,255,255,0.08);
+        transition: background .25s;
+    }
+    .back-link:hover {
+        background: linear-gradient(90deg, var(--accent), var(--accent2));
+        color: #0b0f13;
+    }
+
+    footer {
+        margin-top: 60px;
+        padding: 25px;
+        text-align: center;
+        font-size: .8em;
+        color: #aaa;
+        background: rgba(10,15,25,0.8);
+    }
+
+    @media (max-width: 950px) {
+        .manager { flex-direction: column; }
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>DataVision Consulting</h1>
+    <nav>
+        <a href="index.html">Inicio</a>
+        <a href="servicios.html">Servicios</a>
+        <a href="contacto.html" style="opacity:1;">Contacto</a>
+    </nav>
+</header>
+
+<section class="hero">
+    <a class="back-link" href="index.html">&larr; Volver al inicio</a>
+    <h2>Conéctate con nosotros</h2>
+    <p>Habla directamente con el gerente y equipo, o deja tu mensaje. Oficina central en Bogotá y presencia remota en todo el país.</p>
+</section>
+
+<div class="container">
+    <!-- Tarjeta del gerente -->
+    <div class="card">
+        <div class="badge">Gerente General</div>
+        <div class="manager">
+            <div class="photo" aria-label="Logo o foto del gerente">
+                <img src="https://st3.depositphotos.com/11956860/17344/v/450/depositphotos_173446872-stock-illustration-icon-logo-for-business-administration.jpg" alt="Logo de DataVision Consulting">
+            </div>
+            <div class="info">
+                <h3>Tu Nombre Aquí</h3>
+                <p class="small">Director / Gerente de DataVision Consulting. Especialista en transformación digital mediante análisis de datos, inteligencia de negocio y soluciones escalables.</p>
+                <div class="inline-info">
+                    <div><span class="pill">Email:</span> <a href="mailto:gerente@datavision.consulting" style="color:inherit; text-decoration:none;">gerente@datavision.consulting</a></div>
+                    <div><span class="pill">Teléfono:</span> <a href="tel:+573001234567" style="color:inherit; text-decoration:none;">+57 300 123 4567</a></div>
+                </div>
+
+                <div style="margin-top:12px;">
+                    <div class="small" style="margin-bottom:6px;">Conéctate directamente:</div>
+                    <div class="socials" aria-label="Redes del gerente">
+                        <a class="social-pill" href="https://www.linkedin.com/in/tu-perfil" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                        <a class="social-pill" href="https://wa.me/573001234567?text=Hola%20DataVision%20Consulting" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+                        <a class="social-pill" href="calendario.html" target="_blank" rel="noopener noreferrer">Calendario</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Información de la empresa y contacto -->
+    <div class="card">
+        <h3>Oficina Central</h3>
+        <p class="small">Bogotá D.C., Colombia. Nuestra sede principal opera como eje de coordinación nacional y punto de primera respuesta para clientes estratégicos.</p>
+        <ul class="contact-list">
+            <li>
+                <div>
+                    <div><strong>Dirección:</strong></div>
+                    <div>Carrera 7 # 123-45, Bogotá D.C.</div>
+                </div>
+            </li>
+            <li>
+                <div>
+                    <div><strong>Teléfono general:</strong></div>
+                    <div>+57 1 800 999 0000</div>
+                </div>
+            </li>
+            <li>
+                <div>
+                    <div><strong>Email de soporte:</strong></div>
+                    <div><a href="mailto:soporte@datavision.consulting" style="color:inherit; text-decoration:none;">soporte@datavision.consulting</a></div>
+                </div>
+            </li>
+            <li>
+                <div>
+                    <div><strong>Horario de atención:</strong></div>
+                    <div>Lun - Vie: 8:30 AM - 6:00 PM (GMT-5)</div>
+                </div>
+            </li>
+        </ul>
+
+        <!-- Nuevo apartado de agendamiento con número telefónico -->
+        <div class="call-section">
+            <div class="small">Indica el número al que deseas que te llamemos:</div>
+            <div class="call-input-wrapper">
+                <input type="tel" id="callbackNumber" placeholder="+57 300 123 4567" aria-label="Número para llamada de retorno">
+            </div>
+            <div style="margin-top:8px;">
+                <button id="scheduleCall" class="submit-btn">Agendar llamada</button>
+                <div class="note" id="callNote">Danos un momento, te llamamos.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Formulario de contacto -->
+    <div class="card form-wrapper">
+        <h3>Déjanos un mensaje</h3>
+        <p class="small">Cuéntanos brevemente tu necesidad y te responderemos en menos de 24 horas hábiles.</p>
+        <form id="contactForm" novalidate>
+            <div>
+                <label for="name">Nombre completo</label>
+                <input type="text" id="name" name="name" placeholder="Ej. María Pérez" required />
+            </div>
+            <div>
+                <label for="email">Correo electronico</label>
+                <input type="email" id="email" name="email" placeholder="ejemplo@empresa.com" required />
+            </div>
+            <div>
+                <label for="company">Empresa / Organización</label>
+                <input type="text" id="company" name="company" placeholder="Nombre de la empresa" />
+            </div>
+            <div>
+                <label for="message">Mensaje</label>
+                <textarea id="message" name="message" rows="5" placeholder="Describe tu proyecto o consulta" required></textarea>
+            </div>
+            <div>
+                <button type="submit" class="submit-btn">Enviar mensaje</button>
+            </div>
+            <div class="status" id="formStatus"></div>
+        </form>
+    </div>
+</div>
+
+<!-- Mapa / Ubicación -->
+<section class="container" style="padding-top:0;">
+    <div class="card" style="grid-column: 1 / -1;">
+        <h3>Ubicación de la oficina central</h3>
+        <div class="map-frame" aria-label="Mapa de ubicación de la oficina central en Bogotá">
+            <div class="map-placeholder">
+                <div class="location-pin" aria-hidden="true"></div>
+                <div><strong>Bogotá D.C.</strong></div>
+                <div class="small">Carrera 7 # 123-45</div>
+                <div class="small">(Aquí podría ir un mapa real embebido con Google Maps o similar)</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    © 2025 DataVision Consulting. Todos los derechos reservados. <br/>
+    <small>Transformando datos en decisiones con presencia local y liderazgo directo.</small>
+</footer>
+
+<script>
+    // Validación simple y feedback formulario
+    const form = document.getElementById('contactForm');
+    const statusEl = document.getElementById('formStatus');
+
+    function showStatus(message, type) {
+        statusEl.textContent = message;
+        statusEl.className = 'status ' + (type === 'success' ? 'success' : 'error');
+        statusEl.style.display = 'block';
+    }
+
+    form.addEventListener('submit', e => {
+        e.preventDefault();
+        statusEl.style.display = 'none';
+        const name = form.name.value.trim();
+        const email = form.email.value.trim();
+        const message = form.message.value.trim();
+
+        if (!name || !email || !message) {
+            showStatus('Por favor completa los campos requeridos.', 'error');
+            return;
+        }
+        if (!/^\S+@\S+\.\S+$/.test(email)) {
+            showStatus('Correo electrónico no válido.', 'error');
+            return;
+        }
+
+        showStatus('Enviando...', 'success');
+        setTimeout(() => {
+            showStatus('Mensaje enviado con éxito. Te contestaremos en menos de 24 horas hábiles.', 'success');
+            form.reset();
+        }, 1500);
+    });
+
+    // Agendamiento de llamada
+    const scheduleBtn = document.getElementById('scheduleCall');
+    const callbackInput = document.getElementById('callbackNumber');
+    const callNote = document.getElementById('callNote');
+
+    scheduleBtn.addEventListener('click', () => {
+        const num = callbackInput.value.trim();
+        if (!num) {
+            callNote.textContent = 'Por favor ingresa un número válido.'; 
+            callNote.style.background = 'rgba(255,107,107,0.15)';
+            callNote.style.display = 'block';
+            return;
+        }
+        // Simular agendamiento
+        callNote.textContent = 'Danos un momento, te llamamos.'; 
+        callNote.style.background = 'rgba(124,255,178,0.1)';
+        callNote.style.display = 'block';
+        // Opcional: puedes aquí disparar una llamada real o guardar el número
+        setTimeout(() => {
+            // se puede limpiar o dejar la nota
+        }, 2500);
+    });
+</script>
+
+</body>
+</html>
