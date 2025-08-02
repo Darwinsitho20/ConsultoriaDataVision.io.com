@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Servicios - DataVision Consulting</title>
+<style>
+    :root {
+        --bg1: #0f2027;
+        --bg2: #203a43;
+        --accent: #00ffcc;
+        --accent2: #00bfff;
+        --card-bg: rgba(255,255,255,0.04);
+        --radius: 16px;
+        --transition: .3s cubic-bezier(.4,.2,.2,1);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+        margin: 0;
+        font-family: 'Segoe UI', system-ui, sans-serif;
+        background: linear-gradient(135deg, var(--bg1), var(--bg2));
+        color: #e6eefd;
+        min-height: 100%;
+        line-height: 1.5;
+    }
+
+    header {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        padding: 18px 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: rgba(10,15,25,0.75);
+        backdrop-filter: blur(8px);
+    }
+    header h1 {
+        margin: 0;
+        font-size: 1.7em;
+        background: linear-gradient(90deg, var(--accent), var(--accent2));
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    nav a {
+        margin-left: 18px;
+        text-decoration: none;
+        color: #fff;
+        font-weight: 600;
+        position: relative;
+    }
+    nav a::after {
+        content: "";
+        position: absolute;
+        left: 0; bottom: -4px;
+        width: 0;
+        height: 3px;
+        background: var(--accent);
+        transition: width .25s;
+        border-radius: 2px;
+    }
+    nav a:hover::after { width: 100%; }
+
+    .banner {
+        padding: 80px 20px 40px;
+        text-align: center;
+        position: relative;
+    }
+    .banner h2 {
+        font-size: 2.6em;
+        margin: 0;
+        letter-spacing: 0.5px;
+        color: var(--accent);
+        position: relative;
+    }
+    .banner p {
+        margin: 12px auto 0;
+        max-width: 800px;
+        font-size: 1.1em;
+        opacity: .95;
+    }
+
+    .stats {
+        margin-top: 30px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 30px;
+    }
+    .stat-card {
+        background: var(--card-bg);
+        padding: 25px 30px;
+        border-radius: var(--radius);
+        min-width: 220px;
+        flex: 1 1 220px;
+        position: relative;
+        overflow: hidden;
+        cursor: default;
+        transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .stat-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 25px 60px -10px rgba(0,255,204,0.35);
+    }
+    .stat-card .number {
+        font-size: 2.4em;
+        font-weight: 700;
+        margin: 0;
+        line-height: 1;
+    }
+    .stat-card .label {
+        margin-top: 6px;
+        font-size: .95em;
+        letter-spacing: .5px;
+    }
+
+    .filters {
+        margin: 60px 20px 10px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 15px;
+        justify-content: center;
+    }
+    .filters button {
+        padding: 10px 18px;
+        border: none;
+        border-radius: 999px;
+        background: rgba(255,255,255,0.08);
+        color: #fff;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background .25s;
+    }
+    .filters button.active, .filters button:hover {
+        background: linear-gradient(90deg, var(--accent), var(--accent2));
+        color: #0b0f13;
+    }
+
+    .service-grid {
+        padding: 30px 20px 80px;
+        display: grid;
+        gap: 25px;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        max-width: 1200px;
+        margin: auto;
+    }
+    .service-card {
+        background: rgba(255,255,255,0.03);
+        border-radius: var(--radius);
+        padding: 22px 18px;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        transition: transform var(--transition), box-shadow var(--transition);
+    }
+    .service-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 35px 70px -10px rgba(0,191,255,0.35);
+    }
+    .service-card h4 {
+        margin: 0 0 6px;
+        font-size: 1.2em;
+    }
+    .service-card p {
+        flex: 1;
+        margin: 0;
+        font-size: .95em;
+    }
+    .service-badge {
+        display: inline-block;
+        padding: 5px 12px;
+        border-radius: 999px;
+        font-size: .6em;
+        background: rgba(0,255,204,0.15);
+        margin-right: 6px;
+        font-weight: 600;
+        letter-spacing: .5px;
+    }
+    .learn-more {
+        margin-top: 10px;
+        background: none;
+        border: 2px solid var(--accent);
+        padding: 8px 16px;
+        border-radius: 999px;
+        font-weight: 600;
+        cursor: pointer;
+        align-self: start;
+        transition: background .25s, color .25s;
+    }
+    .learn-more:hover {
+        background: var(--accent);
+        color: #0b0f13;
+    }
+
+    .map-section {
+        background: rgba(255,255,255,0.02);
+        margin: 60px 20px;
+        padding: 40px 25px;
+        border-radius: var(--radius);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 30px;
+        justify-content: center;
+        align-items: flex-start;
+    }
+    .map-info {
+        flex: 1 1 320px;
+        min-width: 280px;
+    }
+    .map-info h3 {
+        margin-top: 0;
+        font-size: 1.8em;
+    }
+    .map-info p {
+        margin-bottom: 14px;
+    }
+    .map-container {
+        flex: 2 1 500px;
+        position: relative;
+        min-width: 300px;
+        max-width: 700px;
+    }
+    .map-svg {
+        width: 100%;
+        height: auto;
+        filter: drop-shadow(0 20px 40px rgba(0,0,0,0.5));
+        border-radius: 12px;
+        background: linear-gradient(135deg, rgba(16,24,40,.9), rgba(32,58,67,.9));
+        padding: 10px;
+    }
+
+    /* Tooltip */
+    .tooltip {
+        position: absolute;
+        background: rgba(10,15,25,.95);
+        padding: 10px 14px;
+        border-radius: 8px;
+        font-size: .85em;
+        pointer-events: none;
+        transform: translate(-50%, -110%);
+        white-space: nowrap;
+        box-shadow: 0 25px 60px -10px rgba(0,255,204,0.4);
+        z-index: 10;
+        opacity: 0;
+        transition: opacity .2s;
+    }
+
+    .back-link {
+        display: inline-block;
+        margin: 20px;
+        text-decoration: none;
+        font-weight: 600;
+        color: #fff;
+        padding: 8px 16px;
+        border-radius: 999px;
+        background: rgba(255,255,255,0.08);
+        transition: background .25s;
+    }
+    .back-link:hover {
+        background: linear-gradient(90deg, var(--accent), var(--accent2));
+        color: #0b0f13;
+    }
+
+    footer {
+        margin-top: 60px;
+        padding: 25px;
+        text-align: center;
+        font-size: .8em;
+        color: #aaa;
+        background: rgba(10,15,25,0.8);
+    }
+
+    /* Responsive tweaks */
+    @media (max-width: 900px) {
+        .banner h2 { font-size: 2.2em; }
+        .map-section { flex-direction: column; }
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <h1>DataVision Consulting</h1>
+    <nav>
+        <a href="index.html">Inicio</a>
+        <a href="servicios.html" style="opacity:1;">Servicios</a>
+        <a href="contacto.html">Contacto</a>
+    </nav>
+</header>
+
+<section class="banner">
+    <a class="back-link" href="index.html">&larr; Volver al inicio</a>
+    <h2>Servicios de Consultoría de Datos</h2>
+    <p>Desde inteligencia empresarial hasta machine learning y soporte continuo, con más de <strong>5000 empleados remotos</strong> desplegados en todo Colombia para acompañar tu transformación digital.</p>
+    <div class="stats" aria-label="Estadísticas destacadas">
+        <div class="stat-card">
+            <div class="number" data-target="5000">0</div>
+            <div class="label">Empleados remotos en Colombia</div>
+        </div>
+        <div class="stat-card">
+            <div class="number" data-target="120">0</div>
+            <div class="label">Clientes activos</div>
+        </div>
+        <div class="stat-card">
+            <div class="number" data-target="15">0</div>
+            <div class="label">Años combinados de experiencia</div>
+        </div>
+    </div>
+</section>
+
+<div class="filters">
+    <button class="filter-btn active" data-filter="all">Todos</button>
+    <button class="filter-btn" data-filter="bi">Business Intelligence</button>
+    <button class="filter-btn" data-filter="predictivo">Analítica Predictiva</button>
+    <button class="filter-btn" data-filter="ml">Machine Learning</button>
+    <button class="filter-btn" data-filter="optimizacion">Optimización</button>
+    <button class="filter-btn" data-filter="ingenieria">Ingeniería de Datos</button>
+    <button class="filter-btn" data-filter="capacitacion">Capacitación</button>
+    <button class="filter-btn" data-filter="soporte">Soporte</button>
+</div>
+
+<section class="service-grid" aria-label="Lista de servicios">
+    <!-- Business Intelligence -->
+    <div class="service-card" data-category="bi">
+        <div class="service-badge">BI</div>
+        <h4>Business Intelligence</h4>
+        <p>Diseño e implementación de dashboards ejecutivos, integración de datos y KPIs en tiempo real para decisiones informadas.</p>
+        <button class="learn-more" onclick="alert('Ver más sobre Business Intelligence')">Ver más</button>
+    </div>
+
+    <!-- Analítica Predictiva -->
+    <div class="service-card" data-category="predictivo">
+        <div class="service-badge">Predictivo</div>
+        <h4>Analítica Predictiva</h4>
+        <p>Modelos que anticipan demanda, rotación, ingresos y riesgos para que puedas actuar antes que el mercado.</p>
+        <button class="learn-more" onclick="alert('Ver más sobre Analítica Predictiva')">Ver más</button>
+    </div>
+
+    <!-- Machine Learning -->
+    <div class="service-card" data-category="ml">
+        <div class="service-badge">ML</div>
+        <h4>Machine Learning</h4>
+        <p>Desarrollo de soluciones inteligentes: clasificación, clustering, recomendadores y automatización adaptativa.</p>
+        <button class="learn-more" onclick="alert('Ver más sobre Machine Learning')">Ver más</button>
+    </div>
+
+    <!-- Optimización -->
+    <div class="service-card" data-category="optimizacion">
+        <div class="service-badge">Optimización</div>
+        <h4>Optimización de Procesos</h4>
+        <p>Análisis estadístico y simulaciones para mejorar eficiencia operativa, cadenas de suministro y asignación de recursos.</p>
+        <button class="learn-more" onclick="alert('Ver más sobre Optimización')">Ver más</button>
+    </div>
+
+    <!-- Ingeniería de datos -->
+    <div class="service-card" data-category="ingenieria">
+        <div class="service-badge">Infraestructura</div>
+        <h4>Ingeniería de Datos</h4>
+        <p>ETL, pipelines, almacenes de datos y arquitecturas escalables para que tus datos estén limpios, accesibles y listos para análisis.</p>
+        <button class="learn-more" onclick="alert('Ver más sobre Ingeniería de Datos')">Ver más</button>
+    </div>
+
+    <!-- Capacitación -->
+    <div class="service-card" data-category="capacitacion">
+        <div class="service-badge">Capacitación</div>
+        <h4>Capacitación y Transferencia</h4>
+        <p>Entrenamos a tu equipo en interpretación, uso y mantenimiento de soluciones analíticas y de datos.</p>
+        <button class="learn-more" onclick="alert('Ver más sobre Capacitación')">Ver más</button>
+    </div>
+
+    <!-- Soporte -->
+    <div class="service-card" data-category="soporte">
+        <div class="service-badge">Soporte</div>
+        <h4>Soporte & Mantenimiento</h4>
+        <p>Monitoreo, ajustes proactivos y soporte continuo para garantizar disponibilidad y evolución del sistema.</p>
+        <button class="learn-more" onclick="alert('Ver más sobre Soporte')">Ver más</button>
+    </div>
+
+    <!-- Paquetes combinados -->
+    <div class="service-card" data-category="all">
+        <div class="service-badge">Paquete</div>
+        <h4>Solución Integral</h4>
+        <p>Combinamos BI, modelos predictivos, ML e ingeniería de datos en una hoja de ruta escalable personalizada.</p>
+        <button class="learn-more" onclick="alert('Ver más sobre Solución Integral')">Ver más</button>
+    </div>
+</section>
+
+<section class="map-section" aria-label="Cobertura de empleados remotos">
+    <div class="map-info">
+        <h3>Cobertura Nacional</h3>
+        <p>Contamos con más de <strong>5000 empleados remotos</strong> distribuidos en todas las regiones de Colombia. Nuestro equipo local permite respuestas ágiles, conocimiento contextual y acompañamiento cercano sin perder escalabilidad.</p>
+        <p>Filtra por tipo de servicio y haz clic en una región del mapa para ver intensidad de presencia (simulado).</p>
+    </div>
+    <div class="map-container">
+        <!-- Tooltip -->
+        <div class="tooltip" id="tooltip">Región</div>
+        <!-- Mapa simplificado (SVG) de Colombia con algunas regiones marcadas -->
+        <svg class="map-svg" viewBox="0 0 600 700" aria-label="Mapa de Colombia con presencia remota">
+            <!-- Silueta simplificada (placeholder) -->
+            <path d="M140 560 L160 530 L200 520 L250 480 L290 430 L330 400 L360 370 L390 330 L420 300 L450 270 
+                     L480 240 L510 220 L540 210 L560 190 L580 160 L570 140 L550 120 L520 110 L480 105 L440 100 
+                     L400 95 L360 100 L320 120 L280 150 L240 190 L200 230 L160 280 L140 320 L120 360 L100 410 
+                     L90 450 L100 500 Z" fill="rgba(255,255,255,0.05)" stroke="rgba(255,255,255,0.2)" stroke-width="2"/>
+            <!-- Puntos representativos (ficticios) -->
+            <circle cx="220" cy="270" r="8" class="region-point" data-region="Bogotá" data-count="850" />
+            <circle cx="140" cy="320" r="8" class="region-point" data-region="Medellín" data-count="610" />
+            <circle cx="260" cy="200" r="8" class="region-point" data-region="Cali" data-count="430" />
+            <circle cx="180" cy="380" r="8" class="region-point" data-region="Bucaramanga" data-count="260" />
+            <circle cx="320" cy="150" r="8" class="region-point" data-region="Cartagena" data-count="190" />
+            <circle cx="280" cy="340" r="8" class="region-point" data-region="Pereira" data-count="155" />
+        </svg>
+    </div>
+</section>
+
+<footer>
+    © 2025 DataVision Consulting. Todos los derechos reservados. <br/>
+    <small>“Transformamos datos en decisiones inteligentes”</small>
+</footer>
+
+<script>
+    // Animación contador
+    function animateCounters() {
+        const items = document.querySelectorAll('.stat-card .number');
+        items.forEach(el => {
+            const target = +el.getAttribute('data-target');
+            const duration = 2000;
+            let start = 0;
+            const step = () => {
+                const progress = Math.min((Date.now() - startTime) / duration, 1);
+                el.textContent = Math.floor(progress * target);
+                if (progress < 1) {
+                    requestAnimationFrame(step);
+                } else {
+                    el.textContent = target + (el.dataset.target === "5000" ? "+" : "");
+                }
+            };
+            const startTime = Date.now();
+            step();
+        });
+    }
+
+    // Filtro de servicios
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            const filter = btn.dataset.filter;
+            document.querySelectorAll('.service-card').forEach(card => {
+                if (filter === 'all' || card.dataset.category === filter || card.dataset.category === 'all') {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    });
+
+    // Tooltip en mapa
+    const tooltip = document.getElementById('tooltip');
+    const regionPoints = document.querySelectorAll('.region-point');
+
+    regionPoints.forEach(pt => {
+        pt.style.fill = '#00ffcc';
+        pt.style.cursor = 'pointer';
+        pt.addEventListener('mouseenter', (e) => {
+            const region = pt.dataset.region;
+            const count = pt.dataset.count;
+            tooltip.textContent = region + ' — ' + count + ' empleados';
+            tooltip.style.opacity = 1;
+        });
+        pt.addEventListener('mousemove', (e) => {
+            const rect = e.currentTarget.getBoundingClientRect();
+            const tx = e.pageX;
+            const ty = e.pageY;
+            tooltip.style.left = (e.pageX) + 'px';
+            tooltip.style.top = (e.pageY - 10) + 'px';
+        });
+        pt.addEventListener('mouseleave', () => {
+            tooltip.style.opacity = 0;
+        });
+        pt.addEventListener('click', () => {
+            alert('Ver presencia detallada en ' + pt.dataset.region + ' (' + pt.dataset.count + ' empleados)');
+        });
+    });
+
+    // Inicializa contadores después de cargar contenido
+    document.addEventListener('DOMContentLoaded', () => {
+        animateCounters();
+    });
+</script>
+
+</body>
+</html>
